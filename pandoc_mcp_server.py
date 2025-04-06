@@ -21,8 +21,11 @@ except OSError:
 
 mcp = FastMCP("Document Converter")
 
-mcp.settings.host= '0.0.0.0'
-mcp.settings.port = 8000
+host_to_bind = '0.0.0.0'
+mcp.settings.host = host_to_bind
+
+port_to_bind = int(os.environ.get('PORT', 8000))
+mcp.settings.port = port_to_bind
 
 
 @mcp.tool()
