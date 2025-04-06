@@ -115,7 +115,7 @@ def convert_document(
 
 
 if __name__ == "__main__":
-    logging.info(f"Starting Document Converter MCP server on http://127.0.0.1:{mcp.settings.port}/sse ...")
+    logging.info(f"Starting Document Converter MCP server on http://0.0.0.0:{mcp.settings.port}/sse ...")
     try:
         mcp.run(transport="sse")
     except KeyboardInterrupt:
