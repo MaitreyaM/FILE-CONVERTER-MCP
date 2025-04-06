@@ -124,7 +124,7 @@ This requires you to install Python, Pandoc, and a LaTeX distribution directly o
 Assuming the server container is running with the volume mount:
 
 ```
-You: convert /data/report.md to pdf at /data/report.pdf
+You: convert /data/report.md to pdf
 
 Agent: Thinking...
 [Agent calls convert_document tool with input='/data/report.md', output='/data/report.pdf', to='pdf']
