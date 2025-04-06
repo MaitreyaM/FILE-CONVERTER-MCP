@@ -121,7 +121,11 @@ def convert_document(
 if __name__ == "__main__":
     logging.info(f"Starting Document Converter MCP server on http://0.0.0.0:{mcp.settings.port}/sse ...")
     try:
-        mcp.run(transport="sse")
+        mcp.run(
+            host=mcp.settings.host,  # Use the value set earlier ('0.0.0.0')
+            port=mcp.settings.port,  # Use the value set earlier (from $PORT or 8000)
+            transport="sse"          # Keep SSE transport
+        )
     except KeyboardInterrupt:
         logging.info("Server interrupted by user.")
     finally:
