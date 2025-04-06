@@ -1,6 +1,7 @@
 # Pandoc MCP Server
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) <!-- Optional: Add a license badge -->
+[![smithery badge](https://smithery.ai/badge/@MaitreyaM/file-converter-mcp)](https://smithery.ai/server/@MaitreyaM/file-converter-mcp)
 
 A Python-based MCP (Model Context Protocol) server that provides powerful document conversion capabilities via Pandoc. This server allows AI agents (like Claude via LangChain/LangGraph) to request file conversions between various formats such as Markdown, DOCX, HTML, PDF, EPUB, and many more.
 
@@ -41,6 +42,14 @@ Converts a document from one format to another using Pandoc.
 ## Setup and Running
 
 You can run this server either locally (requires manual installation of dependencies) or using the provided Docker configuration (recommended for ease of use and deployment).
+
+### Installing via Smithery
+
+To install Pandoc Document Converter for Claude Desktop automatically via [Smithery](https://smithery.ai/server/@MaitreyaM/file-converter-mcp):
+
+```bash
+npx -y @smithery/cli install @MaitreyaM/file-converter-mcp --client claude
+```
 
 ### Option 1: Running with Docker (Recommended)
 
