@@ -21,6 +21,7 @@ except OSError:
 
 mcp = FastMCP("Document Converter")
 
+mcp.settings.host= '0.0.0.0'
 mcp.settings.port = 8000
 
 
