@@ -1,17 +1,14 @@
 import os
 import sys
 import logging
-import pypandoc # For document conversion
+import pypandoc 
 from pathlib import Path
 from typing import Optional, List
 
-# Import MCP components
 from mcp.server.fastmcp import FastMCP
 
-# --- Configuration & Setup ---
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-# Ensure pandoc is installed and accessible
 try:
     pandoc_path = pypandoc.get_pandoc_path()
     logging.info(f"Pandoc found at: {pandoc_path}")
@@ -22,14 +19,10 @@ except OSError:
     print("Error: Pandoc not found. Please install it.", file=sys.stderr)
     sys.exit(1)
 
-# Create an MCP server named "Document Converter"
 mcp = FastMCP("Document Converter")
 
-# Set port and transport as requested
 mcp.settings.port = 8000
-# Host defaults to 127.0.0.1, which is usually fine
 
-# --- Tool Definition ---
 
 @mcp.tool()
 def convert_document(
@@ -73,7 +66,7 @@ def convert_document(
         logging.error("Required argument 'to_format' is missing.")
         return "Error: Missing required argument 'to_format'."
 
-    # Ensure output directory exists
+    
     try:
         output_path.parent.mkdir(parents=True, exist_ok=True)
     except Exception as e:
@@ -96,10 +89,10 @@ def convert_document(
              logging.warning(f"extra_args received was not a list: {extra_args}. Ignoring.")
 
 
-    # Perform conversion
+   
     try:
         logging.info(f"Calling pypandoc.convert_file with args: {pdoc_args}")
-        # When outputfile is specified, convert_file returns "" on success
+        
         pypandoc.convert_file(**pdoc_args)
         logging.info(f"Conversion successful. Output saved to: {output_path.resolve()}")
         return f"Successfully converted document to '{output_path.resolve()}'"
@@ -107,7 +100,7 @@ def convert_document(
     except Exception as e:
         # Catching general exception as pypandoc can raise various things (RuntimeError, OSError etc.)
         logging.exception(f"Pandoc conversion failed: {e}") # Log full traceback
-        # Try to provide a slightly more helpful message if it's a RuntimeError from pandoc
+        
         error_message = str(e)
         if isinstance(e, RuntimeError) and "Pandoc died" in error_message:
              # Extract the pandoc error message if possible
@@ -116,16 +109,15 @@ def convert_document(
                  pandoc_err = error_message.split("Pandoc died", 1)[1]
                  error_message = f"Pandoc execution failed:{pandoc_err}"
              except IndexError:
-                 pass # Keep the original RuntimeError message
-
+                 pass 
         return f"Error during conversion: {error_message}"
 
 
-# --- Main Execution ---
+
 if __name__ == "__main__":
     logging.info(f"Starting Document Converter MCP server on http://127.0.0.1:{mcp.settings.port}/sse ...")
     try:
-        mcp.run(transport="sse") # Use SSE transport as specified in original template
+        mcp.run(transport="sse")
     except KeyboardInterrupt:
         logging.info("Server interrupted by user.")
     finally:

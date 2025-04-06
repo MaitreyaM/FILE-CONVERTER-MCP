@@ -1,0 +1,9 @@
+# Core MCP library (server part)
+mcp
+
+# Pandoc wrapper
+pypandoc
+
+# Although not strictly used by the *server* script itself right now,
+# it's harmless to include if you add features later or if mcp depends on it.
+# python-dotenv
